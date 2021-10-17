@@ -1,11 +1,11 @@
 import app from 'flarum/app';
 
-const settingsPrefix = 'spookygames-auth-keycloak.';
+const settingsPrefix = 'hystar-auth-keycloak.';
 const translationPrefix = 'flarum-ext-auth-keycloak.admin.keycloak_settings.';
 
-app.initializers.add('spookygames-auth-keycloak', app => {
+app.initializers.add('hystar-auth-keycloak', app => {
   app.extensionData
-    .for('spookygames-auth-keycloak')
+    .for('hystar-auth-keycloak')
     .registerSetting(
       {
         setting: settingsPrefix + 'server_url',
