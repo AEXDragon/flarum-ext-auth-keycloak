@@ -1,5 +1,5 @@
 {
-    "name": "spookygames/flarum-ext-auth-keycloak",
+    "name": "hystar/flarum-ext-auth-keycloak",
     "description": "Allow users to sign in/up/out with Keycloak.",
     "type": "flarum-extension",
     "keywords": ["authentication"],
@@ -15,12 +15,12 @@
         "source": "https://github.com/spookygames/flarum-ext-auth-keycloak"
     },
     "require": {
-        "flarum/core": "^1.0",
+        "flarum/core": "^1.1",
         "stevenmaguire/oauth2-keycloak": "2.2.2"
     },
     "autoload": {
         "psr-4": {
-            "SpookyGames\\Auth\\Keycloak\\": "src/"
+            "Hystar\\Auth\\Keycloak\\": "src/"
         }
     },
     "extra": {

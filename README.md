@@ -8,7 +8,7 @@ Allows users to login/logout using Keycloak.
 
 To install, use composer:
 ```
-composer require spookygames/flarum-ext-auth-keycloak
+composer require hystar/flarum-ext-auth-keycloak
 ```
 ## Usage
 * Install extension via Composer / Packagist

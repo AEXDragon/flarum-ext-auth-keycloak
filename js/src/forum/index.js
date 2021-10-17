@@ -16,7 +16,7 @@ app.initializers.add('spookygames-auth-keycloak', () => {
               icon: 'fab arrow-right',
               onclick: function() {
                   const width = 600;
-                  const height = 515;
+                  const height = 700;
                   const $window = $(window);
 
                   window.open(app.forum.attribute('baseUrl') + '/auth/keycloak', 'logInPopup',
