@@ -131,25 +131,25 @@ class KeycloakAuthController implements RequestHandlerInterface
             }
         }
 
-        if ($localUser = LoginProvider::logIn('keycloak', $remoteUser->getId())) {
-            // User already exists and is synced with Keycloak
-
-            // Update with latest information
-
-            $registration = $this->decorateRegistration(new Registration, $remoteUser);
-
-            $data = $this->buildUpdateData(array_merge($registration->getProvided(), $registration->getSuggested()), $groups);
-
-            try {
-                // Update user
-                $this->bus->dispatch(new EditUser($localUser->id, $this->findFirstAdminUser(), $data));
-                $this->updateInternalIfNeeded($localUser, $remoteUser);
-            } catch (Exception $e) {
-                if ($localUser->id != 1) {
-                    exit('Failed to update Flarum user: ' . $e->getMessage());
-                }
-            }
-        }
+//        if ($localUser = LoginProvider::logIn('keycloak', $remoteUser->getId())) {
+//            // User already exists and is synced with Keycloak
+//
+//            // Update with latest information
+//
+//            $registration = $this->decorateRegistration(new Registration, $remoteUser);
+//
+//            $data = $this->buildUpdateData(array_merge($registration->getProvided(), $registration->getSuggested()), $groups);
+//
+//            try {
+//                // Update user
+//                $this->bus->dispatch(new EditUser($localUser->id, $this->findFirstAdminUser(), $data));
+//                $this->updateInternalIfNeeded($localUser, $remoteUser);
+//            } catch (Exception $e) {
+//                if ($localUser->id != 1) {
+//                    exit('Failed to update Flarum user: ' . $e->getMessage());
+//                }
+//            }
+//        }
 
         $actor = $request->getAttribute('actor');
 
@@ -163,12 +163,32 @@ class KeycloakAuthController implements RequestHandlerInterface
 
                 $adminActor = $this->findFirstAdminUser();
 
+                if (preg_match('/^[a-z0-9_-]+$/i', $remoteUser->getName())) {
+                    $username = $remoteUser->getName();
+                    if ($username == User::where('username', '=', $username)) {
+                        $username = Str::random(20);
+                    }
+                    $nickname = NULL;
+                } else {
+                    $username = Str::random(20);
+                    if ($username == User::where('username', '=', $username)){
+                        $username = Str::random(20);
+                    }
+                    $nickname = $remoteUser->getName();
+                    if ($nickname == User::where('nickname', '=', $nickname)) {
+                        $nickname = NULL;
+                    }
+                }
+
                 if ($localUser = User::where(Arr::only($provided, 'email'))->first()) {
 
                     // User already exists but not synced with Keycloak
 
                     // Update with latest information
-                    $data = $this->buildUpdateData(array_merge($provided, $registration->getSuggested()), $groups);
+                    $data = $this->buildUpdateData(array_merge($provided, $registration->getSuggested(), [
+                        'username' => $username,
+                        'nickname' => $nickname
+                    ]), $groups);
 
                     try {
                         // Update user
@@ -176,7 +196,7 @@ class KeycloakAuthController implements RequestHandlerInterface
                         $this->updateInternalIfNeeded($localUser, $remoteUser);
                     } catch (Exception $e) {
                         if ($localUser->id != 1) {
-                            exit('Failed to update Flarum user: ' . $e->getMessage());
+                            exit('Failed to update user: ' . $e->getMessage());
                         }
                     }
 
@@ -184,23 +204,6 @@ class KeycloakAuthController implements RequestHandlerInterface
 
                     // User does not exist (yet)
                     // Automatically create it
-
-                    if (preg_match('/^[a-z0-9_-]+$/i', $remoteUser->getName())) {
-                        $username = $remoteUser->getName();
-                        if ($username == User::where('username', '=', $username)) {
-                            $username = Str::random(20);
-                        }
-                        $nickname = NULL;
-                    } else {
-                        $username = Str::random(20);
-                        if ($username == User::where('username', '=', $username)){
-                            $username = Str::random(20);
-                        }
-                        $nickname = $remoteUser->getName();
-                        if ($nickname == User::where('nickname', '=', $nickname)) {
-                            $nickname = NULL;
-                        }
-                    }
 
                     $registrationToken = RegistrationToken::generate('keycloak', $remoteUser->getId(), $provided, $registration->getPayload());
                     $registrationToken->save();
@@ -224,7 +227,7 @@ class KeycloakAuthController implements RequestHandlerInterface
                         $created->loginProviders()->delete();
                     } catch (Exception $e) {
                         if ($created->id != 1) {
-                            exit('Failed to update Flarum user: ' . $e->getMessage());
+                            exit('Failed to create user: ' . $e->getMessage());
                         }
                     }
 
