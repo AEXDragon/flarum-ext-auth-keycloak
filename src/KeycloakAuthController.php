@@ -1,6 +1,6 @@
 <?php
 
-namespace SpookyGames\Auth\Keycloak;
+namespace Hystar\Auth\Keycloak;
 
 use Exception;
 use Flarum\Group\Group;

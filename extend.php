@@ -1,7 +1,7 @@
 <?php
 
-use SpookyGames\Auth\Keycloak\KeycloakAuthController;
-use SpookyGames\Auth\Keycloak\Listener;
+use Hystar\Auth\Keycloak\KeycloakAuthController;
+use Hystar\Auth\Keycloak\Listener;
 use Illuminate\Events\Dispatcher;
 use Flarum\Extend;
 

@@ -1,5 +1,5 @@
 <?php
-namespace SpookyGames\Auth\Keycloak\Listener;
+namespace Hystar\Auth\Keycloak\Listener;
 use Flarum\Http\UrlGenerator;
 use Flarum\User\Event\LoggedOut;
 use Flarum\Settings\SettingsRepositoryInterface;
