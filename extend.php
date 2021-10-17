@@ -20,7 +20,7 @@ return [
         ->subscribe(Listener\AddLogoutRedirect::class),
 
     (new Extend\Settings)
-      ->serializeToForum('spookygames-auth-keycloak.delegate_avatars', 'spookygames-auth-keycloak.delegate_avatars', 'boolVal', false),
+      ->serializeToForum('hystar-auth-keycloak.delegate_avatars', 'hystar-auth-keycloak.delegate_avatars', 'boolVal', false),
 
     new Extend\Locales(__DIR__.'/locale'),
 ];

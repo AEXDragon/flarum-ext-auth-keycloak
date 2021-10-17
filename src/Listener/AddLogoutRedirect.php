@@ -27,13 +27,13 @@ class AddLogoutRedirect
         $redirectUrl = $this->url->to('forum')->base();
 
         $provider = new Keycloak([
-           'authServerUrl'         => $this->settings->get('spookygames-auth-keycloak.server_url'),
-           'realm'                 => $this->settings->get('spookygames-auth-keycloak.realm'),
-           'clientId'              => $this->settings->get('spookygames-auth-keycloak.app_id'),
-           'clientSecret'          => $this->settings->get('spookygames-auth-keycloak.app_secret'),
+           'authServerUrl'         => $this->settings->get('hystar-auth-keycloak.server_url'),
+           'realm'                 => $this->settings->get('hystar-auth-keycloak.realm'),
+           'clientId'              => $this->settings->get('hystar-auth-keycloak.app_id'),
+           'clientSecret'          => $this->settings->get('hystar-auth-keycloak.app_secret'),
            'redirectUri'           => $redirectUrl,
-           'encryptionAlgorithm'   => $this->settings->get('spookygames-auth-keycloak.encryption_algorithm'),
-           'encryptionKey'         => $this->settings->get('spookygames-auth-keycloak.encryption_key')
+           'encryptionAlgorithm'   => $this->settings->get('hystar-auth-keycloak.encryption_algorithm'),
+           'encryptionKey'         => $this->settings->get('hystar-auth-keycloak.encryption_key')
         ]);
 
         $logoutUrl = $provider->getLogoutUrl();
