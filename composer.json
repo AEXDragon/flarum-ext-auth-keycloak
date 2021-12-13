@@ -11,8 +11,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/spookygames/flarum-ext-auth-keycloak/issues",
-        "source": "https://github.com/spookygames/flarum-ext-auth-keycloak"
+        "issues": "https://gitee.com/AEXDragon/flarum-ext-auth-keycloak/issues",
+        "source": "https://gitee.com/AEXDragon/flarum-ext-auth-keycloak"
     },
     "require": {
         "flarum/core": "^1.1",

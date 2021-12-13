@@ -182,17 +182,17 @@ class KeycloakAuthController implements RequestHandlerInterface
 
                 if ($localUser = User::where(Arr::only($provided, 'email'))->first()) {
 
-                    // User already exists but not synced with Keycloak
-
-                    // Update with latest information
-                    $data = $this->buildUpdateData(array_merge($provided, $registration->getSuggested(), [
-                        'username' => $username,
-                        'nickname' => $nickname
-                    ]), $groups);
+//                    // User already exists but not synced with Keycloak
+//
+//                    // Update with latest information
+//                    $data = $this->buildUpdateData(array_merge($provided, $registration->getSuggested(), [
+//                        'username' => $username,
+//                        'nickname' => $nickname
+//                    ]), $groups);
 
                     try {
                         // Update user
-                        $this->bus->dispatch(new EditUser($localUser->id, $adminActor, $data));
+//                        $this->bus->dispatch(new EditUser($localUser->id, $adminActor, $data));
                         $this->updateInternalIfNeeded($localUser, $remoteUser);
                     } catch (Exception $e) {
                         if ($localUser->id != 1) {
