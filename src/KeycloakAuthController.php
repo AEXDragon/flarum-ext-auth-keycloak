@@ -166,13 +166,13 @@ class KeycloakAuthController implements RequestHandlerInterface
                 if (preg_match('/^[a-z0-9_-]+$/i', $remoteUser->getName())) {
                     $username = $remoteUser->getName();
                     if ($username == User::where('username', '=', $username)) {
-                        $username = Str::random(20);
+                        $username = Str::random(18);
                     }
                     $nickname = NULL;
                 } else {
-                    $username = Str::random(20);
-                    if ($username == User::where('username', '=', $username)){
-                        $username = Str::random(20);
+                    $username = Str::random(18);
+                    if ($username == User::where('username', '=', $username)) {
+                        $username = Str::random(18);
                     }
                     $nickname = $remoteUser->getName();
                     if ($nickname == User::where('nickname', '=', $nickname)) {
